@@ -1,0 +1,26 @@
+[package]
+name = "poc-axum-sqlx"
+description = "A proof of concept for Axum and SQLx"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.axum]
+version = "0.7"
+default-features = false
+features = ["macros", "json", "tokio"]
+
+[dependencies.tokio]
+version = "1.40"
+default-features = false
+features = ["macros", "signal", "rt-multi-thread", "net"]
+
+[dependencies.sqlx]
+version = "0.8"
+default-features = false
+features = ["macros"]
+
+[dependencies]
+serde = "1"
+serde_derive = "1"
+serde_json = "1"
+dotenvy = "0.15"
