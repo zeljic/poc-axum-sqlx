@@ -7,7 +7,7 @@ edition = "2021"
 [dependencies.axum]
 version = "0.7"
 default-features = false
-features = ["macros", "json", "tokio"]
+features = ["macros", "json", "tokio", "http1"]
 
 [dependencies.tokio]
 version = "1.40"
@@ -17,7 +17,7 @@ features = ["macros", "signal", "rt-multi-thread", "net"]
 [dependencies.sqlx]
 version = "0.8"
 default-features = false
-features = ["macros"]
+features = ["macros", "sqlite", "runtime-tokio"]
 
 [dependencies]
 serde = "1"
