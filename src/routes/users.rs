@@ -5,7 +5,6 @@ use axum::response::IntoResponse;
 use axum::routing::get;
 use axum::{http, Router};
 use serde_derive::{Deserialize, Serialize};
-use serde_json::json;
 use sqlx::{FromRow, Pool, Sqlite};
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
@@ -41,7 +40,7 @@ pub async fn item(State(db): State<Pool<Sqlite>>, Path(id): Path<i64>) -> Result
 		None => {
 			Err(AppError::ServiceError(
 				http::StatusCode::NOT_FOUND,
-				"user_not_found".to_string(),
+				"not_found".to_string(),
 				None,
 			))
 		}

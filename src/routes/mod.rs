@@ -1,5 +1,5 @@
 use axum::Router;
-use crate::app::{App, AppState};
+use crate::app::AppState;
 
 mod users;
 

@@ -11,23 +11,22 @@ pub enum AppError {
 impl IntoResponse for AppError {
 	fn into_response(self) -> Response {
 		match self {
-			AppError::InternalServerError(Some(e)) => {
-				// TODO: Log the error
-				println!("{:?}", e);
+			AppError::InternalServerError(e) => {
+				if let Some(err) = e {
+					tracing::error!("{:?}", err);
+				} else {
+					tracing::error!("Internal Server Error");
+				}
 
 				(StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response()
 			}
-			AppError::InternalServerError(None) => {
-				(StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response()
-			}
 			AppError::ServiceError(code, error, e) => {
-				// TODO: Log the error
 				match e {
 					None => {
-						println!("{:?}", error);
+						tracing::error!("{}", error);
 					}
 					Some(e) => {
-						println!("{:?}: {:?}", error, e);
+						tracing::error!("{:?}: {}", e, error);
 					}
 				}
 
