@@ -17,7 +17,12 @@ features = ["macros", "signal", "rt-multi-thread", "net"]
 [dependencies.sqlx]
 version = "0.8"
 default-features = false
-features = ["macros", "sqlite", "runtime-tokio", "time"]
+features = ["macros", "sqlite", "runtime-tokio", "chrono"]
+
+[dependencies.chrono]
+version = "0.4"
+default-features = false
+features = ["serde"]
 
 [dependencies]
 serde = "1"
