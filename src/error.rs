@@ -1,11 +1,13 @@
 use std::error::Error;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
-use serde_json::json;
+use serde_json::{json, Value};
 
 pub enum AppError {
 	InternalServerError(Option<Box<dyn Error>>),
 	ServiceError(StatusCode, String, Option<Box<dyn Error>>),
+
+	Json(StatusCode, Value, Option<Box<dyn Error>>),
 }
 
 impl IntoResponse for AppError {
@@ -21,16 +23,14 @@ impl IntoResponse for AppError {
 				(StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response()
 			}
 			AppError::ServiceError(code, error, e) => {
-				match e {
-					None => {
-						tracing::error!("{}", error);
-					}
-					Some(e) => {
-						tracing::error!("{:?}: {}", e, error);
-					}
+				AppError::Json(code, json!({ "error": error }), e).into_response()
+			}
+			AppError::Json(code, error, err) => {
+				if let Some(err) = err {
+					tracing::error!("{:?}", err);
 				}
 
-				(code, axum::Json(json!({"error": error}))).into_response()
+				(code, axum::Json(error)).into_response()
 			}
 		}
 	}

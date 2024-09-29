@@ -24,6 +24,11 @@ version = "0.4"
 default-features = false
 features = ["serde"]
 
+[dependencies.validator]
+version = "0.18"
+default-features = false
+features = ["derive"]
+
 [dependencies]
 serde = "1"
 serde_derive = "1"
