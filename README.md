@@ -141,12 +141,14 @@ CREATE TABLE comments
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
     task_id    INTEGER NOT NULL,
     user_id    INTEGER NOT NULL,
+    parent_id  INTEGER,
     comment    TEXT    NOT NULL CHECK (LENGTH(comment) > 0),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     deleted_at DATETIME DEFAULT NULL,
     FOREIGN KEY (task_id) REFERENCES tasks (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (parent_id) REFERENCES comments (id)
 );
 
 CREATE INDEX comments_task_id_index ON comments (task_id);
