@@ -7,6 +7,7 @@ pub struct DatabaseUser {
     pub id: i64,
     pub name: String,
     pub email: String,
+    pub display_name: String,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
     pub deleted_at: Option<DateTime<Utc>>,
@@ -17,6 +18,7 @@ pub struct ResponseUser {
     pub id: i64,
     pub name: String,
     pub email: String,
+    pub display_name: String,
 }
 
 impl From<DatabaseUser> for ResponseUser {
@@ -25,6 +27,7 @@ impl From<DatabaseUser> for ResponseUser {
             id: user.id,
             name: user.name,
             email: user.email,
+            display_name: user.display_name,
         }
     }
 }
